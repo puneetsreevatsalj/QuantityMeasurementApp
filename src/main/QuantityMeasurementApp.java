@@ -1,7 +1,12 @@
 public class QuantityMeasurementApp {
 
+    // 🔹 BASE: convert everything to inches
+    interface Unit {
+        double toInches();
+    }
+
     // 🔹 FEET
-    static class Feet {
+    static class Feet implements Unit {
         private final double value;
 
         public Feet(double value) {
@@ -12,60 +17,34 @@ public class QuantityMeasurementApp {
             return value * 12;
         }
 
-        public double toCm() {
-            return toInches() * 2.5;
-        }
-
         @Override
         public boolean equals(Object obj) {
-            if (this == obj) return true;
-            if (obj == null) return false;
-
-            if (obj instanceof Feet)
-                return Double.compare(this.value, ((Feet) obj).value) == 0;
-
-            if (obj instanceof Inch)
-                return Double.compare(this.toInches(), ((Inch) obj).value) == 0;
-
-            if (obj instanceof Cm)
-                return Double.compare(this.toCm(), ((Cm) obj).value) == 0;
-
-            return false;
+            if (!(obj instanceof Unit)) return false;
+            return Double.compare(this.toInches(), ((Unit) obj).toInches()) == 0;
         }
     }
 
     // 🔹 INCH
-    static class Inch {
+    static class Inch implements Unit {
         private final double value;
 
         public Inch(double value) {
             this.value = value;
         }
 
-        public double toCm() {
-            return value * 2.5;
+        public double toInches() {
+            return value;
         }
 
         @Override
         public boolean equals(Object obj) {
-            if (this == obj) return true;
-            if (obj == null) return false;
-
-            if (obj instanceof Inch)
-                return Double.compare(this.value, ((Inch) obj).value) == 0;
-
-            if (obj instanceof Feet)
-                return Double.compare(this.value, ((Feet) obj).toInches()) == 0;
-
-            if (obj instanceof Cm)
-                return Double.compare(this.toCm(), ((Cm) obj).value) == 0;
-
-            return false;
+            if (!(obj instanceof Unit)) return false;
+            return Double.compare(this.toInches(), ((Unit) obj).toInches()) == 0;
         }
     }
 
     // 🔹 CM
-    static class Cm {
+    static class Cm implements Unit {
         private final double value;
 
         public Cm(double value) {
@@ -78,24 +57,13 @@ public class QuantityMeasurementApp {
 
         @Override
         public boolean equals(Object obj) {
-            if (this == obj) return true;
-            if (obj == null) return false;
-
-            if (obj instanceof Cm)
-                return Double.compare(this.value, ((Cm) obj).value) == 0;
-
-            if (obj instanceof Inch)
-                return Double.compare(this.toInches(), ((Inch) obj).value) == 0;
-
-            if (obj instanceof Feet)
-                return Double.compare(this.toInches(), ((Feet) obj).toInches()) == 0;
-
-            return false;
+            if (!(obj instanceof Unit)) return false;
+            return Double.compare(this.toInches(), ((Unit) obj).toInches()) == 0;
         }
     }
 
-    // 🔹 YARD (kept from UC4)
-    static class Yard {
+    // 🔹 YARD
+    static class Yard implements Unit {
         private final double value;
 
         public Yard(double value) {
@@ -108,16 +76,14 @@ public class QuantityMeasurementApp {
 
         @Override
         public boolean equals(Object obj) {
-            if (this == obj) return true;
-            if (obj == null) return false;
-
-            if (obj instanceof Yard)
-                return Double.compare(this.value, ((Yard) obj).value) == 0;
-
-            if (obj instanceof Inch)
-                return Double.compare(this.toInches(), ((Inch) obj).value) == 0;
-
-            return false;
+            if (!(obj instanceof Unit)) return false;
+            return Double.compare(this.toInches(), ((Unit) obj).toInches()) == 0;
         }
+    }
+
+    // 🔹 ADDITION METHOD
+    public static Inch add(Unit u1, Unit u2) {
+        double totalInches = u1.toInches() + u2.toInches();
+        return new Inch(totalInches);
     }
 }

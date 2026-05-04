@@ -122,4 +122,37 @@ public class QuantityMeasurementAppTest {
 
         assertTrue(feet.equals(cm));
     }
+
+    @Test
+    void testAddFeetAndFeet() {
+        QuantityMeasurementApp.Inch result =
+                QuantityMeasurementApp.add(
+                        new QuantityMeasurementApp.Feet(1),
+                        new QuantityMeasurementApp.Feet(1)
+                );
+
+        assertEquals(24, result.toInches());
+    }
+
+    @Test
+    void testAddFeetAndInch() {
+        QuantityMeasurementApp.Inch result =
+                QuantityMeasurementApp.add(
+                        new QuantityMeasurementApp.Feet(1),
+                        new QuantityMeasurementApp.Inch(6)
+                );
+
+        assertEquals(18, result.toInches());
+    }
+
+    @Test
+    void testAddInchAndCm() {
+        QuantityMeasurementApp.Inch result =
+                QuantityMeasurementApp.add(
+                        new QuantityMeasurementApp.Inch(2),
+                        new QuantityMeasurementApp.Cm(5)
+                );
+
+        assertEquals(4, result.toInches());
+    }
 }
