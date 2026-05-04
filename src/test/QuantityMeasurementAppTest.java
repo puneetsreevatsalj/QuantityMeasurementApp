@@ -74,4 +74,28 @@ public class QuantityMeasurementAppTest {
         QuantityMeasurementApp.Inch inch = new QuantityMeasurementApp.Inch(24);
         assertEquals(2, inch.toFeet());
     }
+
+    @Test
+    void test3FeetEquals1Yard() {
+        QuantityMeasurementApp.Feet feet = new QuantityMeasurementApp.Feet(3);
+        QuantityMeasurementApp.Yard yard = new QuantityMeasurementApp.Yard(1);
+
+        assertTrue(feet.equals(yard));
+    }
+
+    @Test
+    void test1YardEquals36Inch() {
+        QuantityMeasurementApp.Yard yard = new QuantityMeasurementApp.Yard(1);
+        QuantityMeasurementApp.Inch inch = new QuantityMeasurementApp.Inch(36);
+
+        assertTrue(yard.equals(inch));
+    }
+
+    @Test
+    void testDifferentYardComparison() {
+        QuantityMeasurementApp.Yard yard = new QuantityMeasurementApp.Yard(1);
+        QuantityMeasurementApp.Feet feet = new QuantityMeasurementApp.Feet(2);
+
+        assertFalse(yard.equals(feet));
+    }
 }
