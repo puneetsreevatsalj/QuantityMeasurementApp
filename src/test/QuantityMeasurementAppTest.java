@@ -98,4 +98,28 @@ public class QuantityMeasurementAppTest {
 
         assertFalse(yard.equals(feet));
     }
+
+    @Test
+    void test1InchEquals2_5Cm() {
+        QuantityMeasurementApp.Inch inch = new QuantityMeasurementApp.Inch(1);
+        QuantityMeasurementApp.Cm cm = new QuantityMeasurementApp.Cm(2.5);
+
+        assertTrue(inch.equals(cm));
+    }
+
+    @Test
+    void test2InchEquals5Cm() {
+        QuantityMeasurementApp.Inch inch = new QuantityMeasurementApp.Inch(2);
+        QuantityMeasurementApp.Cm cm = new QuantityMeasurementApp.Cm(5);
+
+        assertTrue(inch.equals(cm));
+    }
+
+    @Test
+    void testFeetToCm() {
+        QuantityMeasurementApp.Feet feet = new QuantityMeasurementApp.Feet(1);
+        QuantityMeasurementApp.Cm cm = new QuantityMeasurementApp.Cm(30);
+
+        assertTrue(feet.equals(cm));
+    }
 }
