@@ -181,4 +181,46 @@ public class QuantityMeasurementAppTest {
 
         assertEquals(36, result.toInches());
     }
+
+    @Test
+    void testZeroValuesAddition() {
+        QuantityMeasurementApp.Inch result =
+                QuantityMeasurementApp.add(
+                        new QuantityMeasurementApp.Feet(0),
+                        new QuantityMeasurementApp.Inch(0)
+                );
+
+        assertEquals(0, result.toInches());
+    }
+
+    @Test
+    void testLargeValuesAddition() {
+        QuantityMeasurementApp.Inch result =
+                QuantityMeasurementApp.add(
+                        new QuantityMeasurementApp.Feet(10),
+                        new QuantityMeasurementApp.Yard(2)
+                );
+
+        assertEquals(10 * 12 + 2 * 36, result.toInches());
+    }
+
+    @Test
+    void testMixedUnitEquality() {
+        QuantityMeasurementApp.Feet feet = new QuantityMeasurementApp.Feet(1);
+        QuantityMeasurementApp.Cm cm = new QuantityMeasurementApp.Cm(30);
+
+        assertTrue(feet.equals(cm));
+    }
+
+    @Test
+    void testAdditionWithMultipleUnits() {
+        QuantityMeasurementApp.Inch result =
+                QuantityMeasurementApp.add(
+                        new QuantityMeasurementApp.Feet(1),
+                        new QuantityMeasurementApp.Cm(5),
+                        new QuantityMeasurementApp.Inch(6)
+                );
+
+        assertEquals(20, result.toInches());
+    }
 }
