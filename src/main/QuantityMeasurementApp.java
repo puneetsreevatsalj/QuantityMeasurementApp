@@ -12,6 +12,10 @@ public class QuantityMeasurementApp {
             return value * 12;
         }
 
+        public double getValue() {
+            return value;
+        }
+
         @Override
         public boolean equals(Object obj) {
             if (this == obj) return true;
@@ -41,6 +45,10 @@ public class QuantityMeasurementApp {
 
         public double toFeet() {
             return value / 12;
+        }
+
+        public double getValue() {
+            return value;
         }
 
         @Override

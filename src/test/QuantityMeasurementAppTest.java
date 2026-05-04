@@ -49,4 +49,29 @@ public class QuantityMeasurementAppTest {
 
         assertFalse(feet.equals(inch));
     }
+
+    @Test
+    void test12InchEquals1Feet() {
+        QuantityMeasurementApp.Inch inch = new QuantityMeasurementApp.Inch(12);
+        QuantityMeasurementApp.Feet feet = new QuantityMeasurementApp.Feet(1);
+
+        assertTrue(inch.equals(feet));
+    }
+
+    @Test
+    void test24InchEquals2Feet() {
+        QuantityMeasurementApp.Inch inch = new QuantityMeasurementApp.Inch(24);
+        QuantityMeasurementApp.Feet feet = new QuantityMeasurementApp.Feet(2);
+
+        assertTrue(inch.equals(feet));
+    }
+
+    @Test
+    void testConversionAccuracy() {
+        QuantityMeasurementApp.Feet feet = new QuantityMeasurementApp.Feet(2);
+        assertEquals(24, feet.toInches());
+
+        QuantityMeasurementApp.Inch inch = new QuantityMeasurementApp.Inch(24);
+        assertEquals(2, inch.toFeet());
+    }
 }
