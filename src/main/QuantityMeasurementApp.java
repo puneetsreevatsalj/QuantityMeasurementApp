@@ -86,4 +86,14 @@ public class QuantityMeasurementApp {
         double totalInches = u1.toInches() + u2.toInches();
         return new Inch(totalInches);
     }
+
+    public static Inch add(Unit... units) {
+        double total = 0;
+
+        for (Unit u : units) {
+            total += u.toInches();
+        }
+
+        return new Inch(total);
+    }
 }
