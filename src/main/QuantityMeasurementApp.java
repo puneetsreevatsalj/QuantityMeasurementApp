@@ -1,97 +1,78 @@
 public class QuantityMeasurementApp {
 
-    // 🔹 BASE: convert everything to inches
-    interface Unit {
-        double toInches();
-    }
+    // 🔹 BASE CLASS (COMMON LOGIC)
+    static abstract class Quantity {
+        protected final double value;
 
-    // 🔹 FEET
-    static class Feet implements Unit {
-        private final double value;
-
-        public Feet(double value) {
+        public Quantity(double value) {
             this.value = value;
         }
 
-        public double toInches() {
-            return value * 12;
-        }
+        abstract double toInches();
 
         @Override
         public boolean equals(Object obj) {
-            if (!(obj instanceof Unit)) return false;
-            return Double.compare(this.toInches(), ((Unit) obj).toInches()) == 0;
+            if (!(obj instanceof Quantity)) return false;
+
+            Quantity other = (Quantity) obj;
+            return Double.compare(this.toInches(), other.toInches()) == 0;
+        }
+    }
+
+    // 🔹 FEET
+    static class Feet extends Quantity {
+        public Feet(double value) {
+            super(value);
+        }
+
+        @Override
+        double toInches() {
+            return value * 12;
         }
     }
 
     // 🔹 INCH
-    static class Inch implements Unit {
-        private final double value;
-
+    static class Inch extends Quantity {
         public Inch(double value) {
-            this.value = value;
-        }
-
-        public double toInches() {
-            return value;
+            super(value);
         }
 
         @Override
-        public boolean equals(Object obj) {
-            if (!(obj instanceof Unit)) return false;
-            return Double.compare(this.toInches(), ((Unit) obj).toInches()) == 0;
+        double toInches() {
+            return value;
         }
     }
 
     // 🔹 CM
-    static class Cm implements Unit {
-        private final double value;
-
+    static class Cm extends Quantity {
         public Cm(double value) {
-            this.value = value;
-        }
-
-        public double toInches() {
-            return value / 2.5;
+            super(value);
         }
 
         @Override
-        public boolean equals(Object obj) {
-            if (!(obj instanceof Unit)) return false;
-            return Double.compare(this.toInches(), ((Unit) obj).toInches()) == 0;
+        double toInches() {
+            return value / 2.5;
         }
     }
 
     // 🔹 YARD
-    static class Yard implements Unit {
-        private final double value;
-
+    static class Yard extends Quantity {
         public Yard(double value) {
-            this.value = value;
-        }
-
-        public double toInches() {
-            return value * 36;
+            super(value);
         }
 
         @Override
-        public boolean equals(Object obj) {
-            if (!(obj instanceof Unit)) return false;
-            return Double.compare(this.toInches(), ((Unit) obj).toInches()) == 0;
+        double toInches() {
+            return value * 36;
         }
     }
 
-    // 🔹 ADDITION METHOD
-    public static Inch add(Unit u1, Unit u2) {
-        double totalInches = u1.toInches() + u2.toInches();
-        return new Inch(totalInches);
-    }
-
-    public static Inch add(Unit... units) {
+    // 🔹 ADDITION (2 or more units)
+    public static Inch add(Quantity... quantities) {
         double total = 0;
 
-        for (Unit u : units) {
-            total += u.toInches();
+        for (Quantity q : quantities) {
+            total += q.toInches();
         }
 
         return new Inch(total);
