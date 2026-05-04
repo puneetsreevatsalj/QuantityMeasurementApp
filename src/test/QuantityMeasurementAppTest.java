@@ -155,4 +155,30 @@ public class QuantityMeasurementAppTest {
 
         assertEquals(4, result.toInches());
     }
+
+    @Test
+    void testAddMultipleUnits() {
+
+        QuantityMeasurementApp.Inch result =
+                QuantityMeasurementApp.add(
+                        new QuantityMeasurementApp.Feet(1),
+                        new QuantityMeasurementApp.Inch(6),
+                        new QuantityMeasurementApp.Cm(5)
+                );
+
+        assertEquals(20, result.toInches());
+    }
+
+    @Test
+    void testAddThreeFeet() {
+
+        QuantityMeasurementApp.Inch result =
+                QuantityMeasurementApp.add(
+                        new QuantityMeasurementApp.Feet(1),
+                        new QuantityMeasurementApp.Feet(1),
+                        new QuantityMeasurementApp.Feet(1)
+                );
+
+        assertEquals(36, result.toInches());
+    }
 }
